@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bisapp.mycontentprovider">
+
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.bisapp.mycontentprovider.BOOK_PROVIDER" />
+
+    <!--protecting our provider-->
+    <permission android:name="com.bisapp.mycontentprovider.BOOK_PROVIDER" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <provider
+            android:name=".provider.BookProvider"
+            android:authorities="com.bisapp.mycontentprovider"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="com.bisapp.mycontentprovider.BOOK_PROVIDER" />
+
+
+        <provider xmlns:tools="http://schemas.android.com/tools"
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+
+            <meta-data
+                android:name="com.bisapp.mycontentprovider.startup_setup.LibraryAInitializer"
+                android:value="androidx.startup"
+                tools:node="remove"/>
+        </provider>
+    </application>
+
+</manifest>
